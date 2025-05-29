@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Bestshop - Mini Medical Store</title>
@@ -115,7 +115,7 @@
 <body data-offset="50" data-spy="scroll" data-target=".navbar" class="dark-theme index-3">
     <!-- PRELOADER -->
     <div class="page-loader">
-        <div class="loader">Loading...</div>
+        <div class="loader">Загрузка...</div>
     </div>
     <!-- /PRELOADER -->
 
@@ -128,53 +128,56 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="{% static 'assets-for-index-2/img/logo.png' %}" alt="Logo" /></a>
+                <a class="navbar-brand" href="#"><img src="{% static 'assets-for-index-2/img/logo.png' %}" alt="Логотип" /></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#products">Products</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#blog">Блог</a></li>
+                    <li><a href="#testimonials">Отзывы</a></li>
+                    <li><a href="#contact">Контакты</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- /Header -->
 
-    <!-- Slider -->
+    <!-- Home Slider -->
     <section class="home section image-slider" id="home">
         <div class="home-slider text-center swiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide" style="background: url({% static 'assets-for-index-2/img/slider/slide4.jpg' %});">
-                    <h1>Wash Your Hand</h1>
-                    <h2 class="home-slider-title-main">80% Discount for This Season</h2>
-                    <div class="home-buttons text-center">
-                        <a href="#products" class="btn btn-lg btn-primary">Our Products</a>
+                {% if home %}
+                    <div class="swiper-slide" style="background: url({{ home.image.url }}); background-size: cover; background-position: center;">
+                        <h1>{{ home.title }}</h1>
+                        <h2 class="home-slider-title-main">{{ home.description|truncatechars:50 }}</h2>
+                        <div class="home-buttons text-center">
+                            <a href="#blog" class="btn btn-lg btn-primary">Наши посты</a>
+                        </div>
+                        <a class="arrow bounce text-center" href="#blog">
+                            <span class="fas fa-mouse"></span>
+                            <span class="fas fa-angle-double-down"></span>
+                        </a>
                     </div>
-                    <a class="arrow bounce text-center" href="#about">
-                        <span class="fas fa-mouse"></span>
-                        <span class="fas fa-angle-double-down"></span>
-                    </a>
-                </div>
-                <div class="swiper-slide" style="background: url({% static 'assets-for-index-2/img/slider/slide3.jpg' %});">
-                    <h1>Stay Healthy</h1>
-                    <h2 class="home-slider-title-main">With Working Cart & PayPal</h2>
-                    <div class="home-buttons text-center">
-                        <a href="#products" class="btn btn-lg btn-primary">Our Products</a>
+                {% else %}
+                    <div class="swiper-slide" style="background: url({% static 'assets-for-index-2/img/slider/slide4.jpg' %});">
+                        <h1>Тестовый заголовок</h1>
+                        <h2 class="home-slider-title-main">Тестовое описание</h2>
+                        <div class="home-buttons text-center">
+                            <a href="#blog" class="btn btn-lg btn-primary">Наши посты</a>
+                        </div>
+                        <a class="arrow bounce text-center" href="#blog">
+                            <span class="fas fa-mouse"></span>
+                            <span class="fas fa-angle-double-down"></span>
+                        </a>
                     </div>
-                    <a class="arrow bounce text-center" href="#about">
-                        <span class="fas fa-mouse"></span>
-                        <span class="fas fa-angle-double-down"></span>
-                    </a>
-                </div>
+                {% endif %}
             </div>
             <div class="swiper-pagination home-pagination"></div>
             <div class="swiper-button-next home-slider-next"><span class="fas fa-arrow-right"></span></div>
             <div class="swiper-button-prev home-slider-prev"><span class="fas fa-arrow-left"></span></div>
         </div>
     </section>
-    <!-- /Slider -->
+    <!-- /Home Slider -->
 
     <!-- Cart Section -->
     <span id="items-counter" class="h3 cart-items-counter" style="display: none">0</span>
@@ -184,29 +187,29 @@
                 <span class="fas fa-times"></span>
             </a>
             <h1>Goshop</h1>
-            <h3 class="section-heading">Your Cart</h3>
-            <div id="cart-empty" class="cart-empty"><h4>is empty <span class="fas fa-face-sad-tear icon"></span></h4></div>
+            <h3 class="section-heading">Ваша корзина</h3>
+            <div id="cart-empty" class="cart-empty"><h4>Пусто <span class="fas fa-face-sad-tear icon"></span></h4></div>
             <div class="items-container" id="items"></div>
             <div class="cart-delivery" id="cart-delivery">
-                <h4 class="section-heading">Delivery Options</h4>
+                <h4 class="section-heading">Варианты доставки</h4>
                 <div class="custom-radio">
                     <input id="radio1" type="radio" name="delivery" value="10.00" checked>
-                    <label for="radio1">Domestic Delivery ($10)</label>
+                    <label for="radio1">Локальная доставка ($10)</label>
                 </div>
                 <div class="custom-radio">
                     <input id="radio2" type="radio" name="delivery" value="15.00">
-                    <label for="radio2">Express Delivery ($15)</label>
+                    <label for="radio2">Экспресс доставка ($15)</label>
                 </div>
                 <div class="custom-radio">
                     <input id="radio3" type="radio" name="delivery" value="20.00">
-                    <label for="radio3">Worldwide Delivery ($20)</label>
+                    <label for="radio3">Мировая доставка ($20)</label>
                 </div>
             </div>
             <div class="cart-summary" id="cart-summary">
-                <h4 class="section-heading">Summary</h4>
-                <div class="cart-summary-row" id="cart-total">Total Products <span class="cart-value">$<span id="cost_value">0.00</span></span></div>
-                <div class="cart-summary-row">Shipping <span class="cart-value">$<span id="cost_delivery"></span></span></div>
-                <div class="cart-summary-row cart-summary-row-total">Total <span class="cart-value">$<span id="total-total"></span></span></div>
+                <h4 class="section-heading">Итог</h4>
+                <div class="cart-summary-row" id="cart-total">Общая стоимость <span class="cart-value">$<span id="cost_value">0.00</span></span></div>
+                <div class="cart-summary-row">Доставка <span class="cart-value">$<span id="cost_delivery"></span></span></div>
+                <div class="cart-summary-row cart-summary-row-total">Итого <span class="cart-value">$<span id="total-total"></span></span></div>
             </div>
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" class="cart-form" id="cart-form">
                 <input type="hidden" name="business" value="yourpaypal@email.com">
@@ -215,7 +218,7 @@
                 <input type="hidden" name="amount" id="amount" value="">
                 <input type="hidden" name="currency_code" value="USD">
                 <button type="submit" name="submit" class="btn btn-default btn-lg">
-                    PayPal Checkout <span class="fas fa-arrow-right"></span>
+                    Оплатить через PayPal <span class="fas fa-arrow-right"></span>
                 </button>
             </form>
         </div>
@@ -231,15 +234,15 @@
                     <div class="banner-box banner-type-5 banner-hover-3 nnrrnew">
                         <div class="banner-inner">
                             <div class="banner-image">
-                                <img src="{% static 'assets-for-index-2/img/h3ad1.jpg' %}" alt="Banner">
+                                <img src="{% static 'assets-for-index-2/img/h3ad1.jpg' %}" alt="Баннер">
                             </div>
                             <div class="banner-info">
                                 <div class="banner-info--inner one_inr">
-                                    <p class="heading-bigger text-capitalize">Gloves</p>
-                                    <p class="banner-title-1 text-uppercase font-weight-bold">50% off Medical Gloves</p>
+                                    <p class="heading-bigger text-capitalize">Перчатки</p>
+                                    <p class="banner-title-1 text-uppercase font-weight-bold">50% скидка на медицинские перчатки</p>
                                 </div>
                             </div>
-                            <a class="banner-link banner-overlay" href="#">Shop Now</a>
+                            <a class="banner-link banner-overlay" href="#">Купить сейчас</a>
                         </div>
                     </div>
                 </div>
@@ -247,31 +250,31 @@
                     <div class="banner-box banner-type-5 banner-hover-3 mm_b_30">
                         <div class="banner-inner">
                             <div class="banner-image">
-                                <img src="{% static 'assets-for-index-2/img/h3ad2.jpg' %}" alt="Banner">
+                                <img src="{% static 'assets-for-index-2/img/h3ad2.jpg' %}" alt="Баннер">
                             </div>
                             <div class="banner-info">
                                 <div class="banner-info--inner two_inr">
-                                    <p class="banner-title-1 font-weight-bold text-uppercase">Disposable Face Mask</p>
-                                    <p class="banner-title-4"><span>Off 70%</span></p>
-                                    <p class="banner-title-5">Don't Miss</p>
+                                    <p class="banner-title-1 font-weight-bold text-uppercase">Одноразовые маски</p>
+                                    <p class="banner-title-4"><span>Скидка 70%</span></p>
+                                    <p class="banner-title-5">Не пропустите</p>
                                 </div>
                             </div>
-                            <a class="banner-link banner-overlay" href="#">Shop Now</a>
+                            <a class="banner-link banner-overlay" href="#">Купить сейчас</a>
                         </div>
                     </div>
                     <div class="banner-box banner-type-5 banner-hover-3 mm_b_30">
                         <div class="banner-inner">
                             <div class="banner-image">
-                                <img src="{% static 'assets-for-index-2/img/h3ad3.jpg' %}" alt="Banner">
+                                <img src="{% static 'assets-for-index-2/img/h3ad3.jpg' %}" alt="Баннер">
                             </div>
                             <div class="banner-info">
                                 <div class="banner-info--inner three_inr">
-                                    <p class="banner-title-1 font-weight-bold text-uppercase">Hand Soap</p>
-                                    <p class="banner-title-4"><span>Off 50%</span></p>
-                                    <p class="banner-title-5">Don't Miss This</p>
+                                    <p class="banner-title-1 font-weight-bold text-uppercase">Жидкое мыло</p>
+                                    <p class="banner-title-4"><span>Скидка 50%</span></p>
+                                    <p class="banner-title-5">Не пропустите это</p>
                                 </div>
                             </div>
-                            <a class="banner-link banner-overlay" href="#">Shop Now</a>
+                            <a class="banner-link banner-overlay" href="#">Купить сейчас</a>
                         </div>
                     </div>
                 </div>
@@ -280,308 +283,28 @@
     </div>
     <!-- /Banner Area -->
 
-    <!-- Products Area -->
-    <section class="section-min section product" id="products">
-        <div class="container overflow-hidden">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="section-heading">Featured Products</h3>
-                </div>
-                <div class="col-md-12">
-                    <div class="product-list-slider-featured swiper">
-                        <ul class="swiper-wrapper product-list product-list-vertical">
-                            <li class="swiper-slide text-center">
-                                <span class="product-list-left pull-left">
-                                    <span class="sale-p">sale</span>
-                                    <a href="#" data-target="#product-01" data-toggle="modal">
-                                        <img alt="product image" class="product-list-primary-img" src="{% static 'assets-for-index-2/img/index-3-products/p1.jpg' %}">
-                                        <img alt="product image" class="product-list-secondary-img" src="{% static 'assets-for-index-2/img/index-3-products/p3.jpg' %}">
-                                    </a>
-                                </span>
-                                <a href="#" data-target="#product-01" data-toggle="modal">
-                                    <span class="product-list-right pull-left">
-                                        <span class="product-list-name h4 black-color">New Life Mint Soap Liquid</span>
-                                        <span class="product-list-price">$400.00</span>
-                                        <span class="product-list-price sell-p"><del>$580.00</del></span>
-                                        <span class="rating-area">
-                                            <span class="fas fa-star"></span>
-                                            <span class="fas fa-star"></span>
-                                            <span class="fas fa-star"></span>
-                                            <span class="fas fa-star"></span>
-                                            <span class="fas fa-star"></span>
-                                        </span>
-                                    </span>
-                                </a>
-                                <button class="btn btn-default add-item" type="button" data-image="{% static 'assets-for-index-2/img/index-3-products/p1.jpg' %}" data-name="Winter Long Sleeve Black White" data-cost="400.00" data-id="1">
-                                    Add to Cart
-                                </button>
-                            </li>
-                            <li class="swiper-slide text-center">
-                                <span class="product-list-left pull-left">
-                                    <a href="#" data-target="#product-01" data-toggle="modal">
-                                        <img alt="product image" class="product-list-primary-img" src="{% static 'assets-for-index-2/img/index-3-products/p8.jpg' %}">
-                                        <img alt="product image" class="product-list-secondary-img" src="{% static 'assets-for-index-2/img/index-3-products/p4.jpg' %}">
-                                    </a>
-                                </span>
-                                <a href="#" data-target="#product-01" data-toggle="modal">
-                                    <span class="product-list-right pull-left">
-                                        <span class="product-list-name h4 black-color">Women Black Face Mask</span>
-                                        <span class="product-list-price">$300.00</span>
-                                        <span class="rating-area">
-                                            <span class="fas fa-star high_light"></span>
-                                            <span class="fas fa-star high_light"></span>
-                                            <span class="fas fa-star high_light"></span>
-                                            <span class="fas fa-star"></span>
-                                            <span class="fas fa-star"></span>
-                                        </span>
-                                    </span>
-                                </a>
-                                <button class="btn btn-default add-item" type="button" data-image="{% static 'assets-for-index-2/img/index-3-products/p8.jpg' %}" data-name="Women Totes Lady Handbag" data-cost="300.00" data-id="2">
-                                    Add to Cart
-                                </button>
-                            </li>
-                            <li class="swiper-slide text-center">
-                                <span class="product-list-left pull-left">
-                                    <span class="sale-p new-p">new</span>
-                                    <a href="#" data-target="#product-01" data-toggle="modal">
-                                        <img alt="product image" class="product-list-primary-img" src="{% static 'assets-for-index-2/img/index-3-products/p4.jpg' %}">
-                                        <img alt="product image" class="product-list-secondary-img" src="{% static 'assets-for-index-2/img/index-3-products/p6.jpg' %}">
-                                    </a>
-                                </span>
-                                <a href="#" data-target="#product-01" data-toggle="modal">
-                                    <span class="product-list-right pull-left">
-                                        <span class="product-list-name h4 black-color">EO Liquid Hand Soap</span>
-                                        <span class="product-list-price">$600.00</span>
-                                        <span class="rating-area">
-                                            <span class="fas fa-star high_light"></span>
-                                            <span class="fas fa-star high_light"></span>
-                                            <span class="fas fa-star high_light"></span>
-                                            <span class="fas fa-star high_light"></span>
-                                            <span class="fas fa-star high_light"></span>
-                                        </span>
-                                    </span>
-                                </a>
-                                <button class="btn btn-default add-item" type="button" data-image="{% static 'assets-for-index-2/img/index-3-products/p4.jpg' %}" data-name="Lace Water Soluble Sexy Dress" data-cost="600.00" data-id="3">
-                                    Add to Cart
-                                </button>
-                            </li>
-                        </ul>
-                        <div class="swiper-button-next product-list-slider-next"><span class="fas fa-arrow-right"></span></div>
-                        <div class="swiper-button-prev product-list-slider-prev"><span class="fas fa-arrow-left"></span></div>
-                    </div>
-                </div>
-                <div class="single-category-box2">
-                    <a class="link-btn" href="#"><img src="{% static 'assets-for-index-2/img/lg3.jpg' %}" alt="image"></a>
-                </div>
-                <div class="new-products-area">
-                    <div class="col-md-12">
-                        <h3 class="section-heading">New Products</h3>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="product-list-slider-new swiper">
-                            <ul class="swiper-wrapper product-list product-list-vertical">
-                                <li class="swiper-slide text-center">
-                                    <span class="product-list-left pull-left">
-                                        <span class="sale-p">sale</span>
-                                        <a href="#" data-target="#product-01" data-toggle="modal">
-                                            <img alt="product image" class="product-list-primary-img" src="{% static 'assets-for-index-2/img/index-3-products/p12.jpg' %}">
-                                            <img alt="product image" class="product-list-secondary-img" src="{% static 'assets-for-index-2/img/index-3-products/p2.jpg' %}">
-                                        </a>
-                                    </span>
-                                    <a href="#" data-target="#product-01" data-toggle="modal">
-                                        <span class="product-list-right pull-left">
-                                            <span class="product-list-name h4 black-color">Baby Mini Mask White</span>
-                                            <span class="product-list-price">$400.00</span>
-                                            <span class="product-list-price sell-p"><del>$580.00</del></span>
-                                            <span class="rating-area">
-                                                <span class="fas fa-star high_light"></span>
-                                                <span class="fas fa-star high_light"></span>
-                                                <span class="fas fa-star high_light"></span>
-                                                <span class="fas fa-star high_light"></span>
-                                                <span class="fas fa-star"></span>
-                                            </span>
-                                        </span>
-                                    </a>
-                                    <button class="btn btn-default add-item" type="button" data-image="{% static 'assets-for-index-2/img/index-3-products/p12.jpg' %}" data-name="Women White Backless Mini" data-cost="400.00" data-id="1">
-                                        Add to Cart
-                                    </button>
-                                </li>
-                                <li class="swiper-slide text-center">
-                                    <span class="product-list-left pull-left">
-                                        <a href="#" data-target="#product-01" data-toggle="modal">
-                                            <img alt="product image" class="product-list-primary-img" src="{% static 'assets-for-index-2/img/index-3-products/p10.jpg' %}">
-                                            <img alt="product image" class="product-list-secondary-img" src="{% static 'assets-for-index-2/img/index-3-products/p4.jpg' %}">
-                                        </a>
-                                    </span>
-                                    <a href="#" data-target="#product-01" data-toggle="modal">
-                                        <span class="product-list-right pull-left">
-                                            <span class="product-list-name h4 black-color">Women Black Mask New</span>
-                                            <span class="product-list-price">$300.00</span>
-                                            <span class="rating-area">
-                                                <span class="fas fa-star"></span>
-                                                <span class="fas fa-star"></span>
-                                                <span class="fas fa-star"></span>
-                                                <span class="fas fa-star"></span>
-                                                <span class="fas fa-star"></span>
-                                            </span>
-                                        </span>
-                                    </a>
-                                    <button class="btn btn-default add-item" type="button" data-image="{% static 'assets-for-index-2/img/index-3-products/p10.jpg' %}" data-name="Women Totes Lady Handbag" data-cost="300.00" data-id="2">
-                                        Add to Cart
-                                    </button>
-                                </li>
-                                <li class="swiper-slide text-center">
-                                    <span class="product-list-left pull-left">
-                                        <span class="sale-p new-p">new</span>
-                                        <a href="#" data-target="#product-01" data-toggle="modal">
-                                            <img alt="product image" class="product-list-primary-img" src="{% static 'assets-for-index-2/img/index-3-products/p5.jpg' %}">
-                                            <img alt="product image" class="product-list-secondary-img" src="{% static 'assets-for-index-2/img/index-3-products/p6.jpg' %}">
-                                        </a>
-                                    </span>
-                                    <a href="#" data-target="#product-01" data-toggle="modal">
-                                        <span class="product-list-right pull-left">
-                                            <span class="product-list-name h4 black-color">EO Hand Soap Liquid</span>
-                                            <span class="product-list-price">$600.00</span>
-                                            <span class="rating-area">
-                                                <span class="fas fa-star high_light"></span>
-                                                <span class="fas fa-star high_light"></span>
-                                                <span class="fas fa-star high_light"></span>
-                                                <span class="fas fa-star high_light"></span>
-                                                <span class="fas fa-star"></span>
-                                            </span>
-                                        </span>
-                                    </a>
-                                    <button class="btn btn-default add-item" type="button" data-image="{% static 'assets-for-index-2/img/index-3-products/p5.jpg' %}" data-name="Sexy Women Floral Embroidery" data-cost="600.00" data-id="3">
-                                        Add to Cart
-                                    </button>
-                                </li>
-                            </ul>
-                            <div class="swiper-button-next product-list-slider-next"><span class="fas fa-arrow-right"></span></div>
-                            <div class="swiper-button-prev product-list-slider-prev"><span class="fas fa-arrow-left"></span></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Product Modal -->
-                <div class="modal fade product-modal" id="product-01" role="dialog" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content shadow">
-                            <a class="close" data-dismiss="modal"><span class="fas fa-times"></span></a>
-                            <div class="modal-body">
-                                <div class="carousel slide product-slide" id="product-carousel" data-ride="carousel">
-                                    <div class="carousel-inner cont-slider">
-                                        <div class="item active"><img alt="" src="{% static 'assets-for-index-2/img/index-3-products/p7.jpg' %}" title=""></div>
-                                        <div class="item"><img alt="" src="{% static 'assets-for-index-2/img/index-3-products/p4.jpg' %}" title=""></div>
-                                        <div class="item"><img alt="" src="{% static 'assets-for-index-2/img/index-3-products/p5.jpg' %}" title=""></div>
-                                        <div class="item"><img alt="" src="{% static 'assets-for-index-2/img/index-3-products/p2.jpg' %}" title=""></div>
-                                    </div>
-                                    <a class="carousel-control-prev" href="#product-carousel" role="button" data-slide="prev">
-                                        <span class="fas fa-arrow-left" aria-hidden="true"></span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#product-carousel" role="button" data-slide="next">
-                                        <span class="fas fa-arrow-right" aria-hidden="true"></span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                    <ol class="carousel-indicators">
-                                        <li class="active" data-slide-to="0" data-target="#product-carousel"><img alt="" src="{% static 'assets-for-index-2/img/index-3-products/p7.jpg' %}"></li>
-                                        <li data-slide-to="1" data-target="#product-carousel"><img alt="" src="{% static 'assets-for-index-2/img/index-3-products/p4.jpg' %}"></li>
-                                        <li data-slide-to="2" data-target="#product-carousel"><img alt="" src="{% static 'assets-for-index-2/img/index-3-products/p5.jpg' %}"></li>
-                                        <li data-slide-to="3" data-target="#product-carousel"><img alt="" src="{% static 'assets-for-index-2/img/index-3-products/p2.jpg' %}"></li>
-                                    </ol>
-                                </div>
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-8 col-md-push-2">
-                                            <div class="row">
-                                                <div class="col-md-7">
-                                                    <h3 class="pull-left nk section-heading">Meyers Liquid Refill</h3>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <span class="product-right-section">
-                                                        <span>$299.00</span>
-                                                        <button class="btn btn-default add-item" type="button" data-image="{% static 'assets-for-index-2/img/index-3-products/p2.jpg' %}" data-name="Elegant Formal Party Dress" data-cost="299.00" data-id="8">
-                                                            Add to Cart
-                                                        </button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8 col-md-push-2 product-description">
-                                            <h4 class="section-heading">Product Description</h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <img src="{% static 'assets-for-index-2/img/index-3-products/p7.jpg' %}" class="img-responsive" alt="product image">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <h4 class="section-heading">Additional Information</h4>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                </div>
-                                            </div>
-                                            <div class="product-tabs">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="active"><a data-toggle="tab" href="#tab1">Details</a></li>
-                                                    <li><a data-toggle="tab" href="#tab2">Info</a></li>
-                                                    <li><a data-toggle="tab" href="#tab3">Other</a></li>
-                                                </ul>
-                                                <div class="tab-content">
-                                                    <div id="tab1" class="tab-pane fade in active">
-                                                        <h4 class="section-heading">Details</h4>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                    </div>
-                                                    <div id="tab2" class="tab-pane fade">
-                                                        <h4 class="section-heading">Info</h4>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                    </div>
-                                                    <div id="tab3" class="tab-pane fade">
-                                                        <h4 class="section-heading">Other Info</h4>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Product Modal -->
-            </div>
-    </section>
-    <!-- /Products Area -->
-
     <!-- Testimonials Area -->
     <section class="testimonials" id="testimonials">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-heading">Testimonials</h3>
+                    <h3 class="section-heading">Отзывы</h3>
                 </div>
                 <div class="testimonials-slider text-center col-md-12 swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="testimonials-container shadow">
-                                <img alt="user avatar" src="{% static 'assets-for-index-2/img/user.png' %}">
-                                <h3>Martin Johe <span>Co-Founder / CEO, Fastcompany Ltd.</span></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        {% for testimonial in testimonials %}
+                            <div class="swiper-slide">
+                                <div class="testimonials-container shadow">
+                                    {% if testimonial.image %}
+                                        <img alt="Аватар пользователя" src="{{ testimonial.image.url }}">
+                                    {% else %}
+                                        <img alt="Аватар пользователя" src="{% static 'assets-for-index-2/img/user.png' %}">
+                                    {% endif %}
+                                    <h3>{{ testimonial.name }} <span>{{ testimonial.position }}</span></h3>
+                                    <p>{{ testimonial.content }}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="testimonials-container shadow">
-                                <img alt="user avatar" src="{% static 'assets-for-index-2/img/user2.png' %}">
-                                <h3>Jane Doe <span>Manager, HealthCorp</span></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="testimonials-container shadow">
-                                <img alt="user avatar" src="{% static 'assets-for-index-2/img/user.png' %}">
-                                <h3>John Smith <span>Customer</span></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                     <div class="swiper-pagination testimonials-pagination"></div>
                     <div class="swiper-button-next testimonials-slider-next"><span class="fas fa-arrow-right"></span></div>
@@ -592,81 +315,32 @@
     </section>
     <!-- /Testimonials Area -->
 
-    <!-- Counter Section -->
-    <section class="text-center shadow section section-min nnrr">
-        <div class="about-counter" id="about-counter">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 about-counter-single">
-                        <div class="counter">
-                            <span class="fas fa-truck icon"></span>
-                            <h2>Free Shipping Worldwide</h2>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 about-counter-single">
-                        <div class="counter">
-                            <span class="fas fa-gift icon"></span>
-                            <h2>Special Gift Per Order</h2>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 about-counter-single">
-                        <div class="counter">
-                            <span class="fas fa-money-bill icon"></span>
-                            <h2>Money Back Guarantee</h2>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 about-counter-single">
-                        <div class="counter">
-                            <span class="fas fa-headphones icon"></span>
-                            <h2>24/7 Online Support</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- /Counter Section -->
-
     <!-- Blog Section -->
     <div class="blog_area">
         <div class="blog-counter" id="blog">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
-                        <h3 class="section-heading">Latest Blog</h3>
+                        <h3 class="section-heading">Последние посты</h3>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-md-4 col-sm-6 blog-single">
-                        <div class="single_blog">
-                            <img src="{% static 'assets-for-index-2/img/b1.jpg' %}" alt="">
-                            <div class="blog_details">
-                                <a href="#"><h1>How to Use Mask Properly</h1></a>
-                                <span>April 16, 2020</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    {% for post in blog_posts %}
+                        <div class="col-md-4 col-sm-6 blog-single">
+                            <div class="single_blog">
+                                {% if post.image %}
+                                    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                                {% else %}
+                                    <img src="{% static 'assets-for-index-2/img/b1.jpg' %}" alt="{{ post.title }}">
+                                {% endif %}
+                                <div class="blog_details">
+                                    <a href="#"><h1>{{ post.title }}</h1></a>
+                                    <span>{{ post.created_at|date:"F d, Y" }}</span>
+                                    <p>{{ post.content|truncatechars:100 }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 blog-single">
-                        <div class="single_blog">
-                            <img src="{% static 'assets-for-index-2/img/b2.jpg' %}" alt="">
-                            <div class="blog_details">
-                                <a href="#"><h1>The Blood Sample of COVID-19</h1></a>
-                                <span>April 02, 2020</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 blog-single">
-                        <div class="single_blog">
-                            <img src="{% static 'assets-for-index-2/img/b3.jpg' %}" alt="">
-                            <div class="blog_details">
-                                <a href="#"><h1>All About Corona Virus</h1></a>
-                                <span>April 14, 2020</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -678,23 +352,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-heading">Get in Touch</h3>
+                    <h3 class="section-heading">Свяжитесь с нами</h3>
                 </div>
                 <div class="col-md-3">
                     <div class="contact-data">
-                        <h4>United States</h4>
-                        <ul>
-                            <li><span class="fas fa-mobile icon"></span>+ 123 456 7890</li>
-                            <li><span class="fas fa-envelope icon"></span>admin@goshop</li>
-                            <li><span class="fas fa-map-marker-alt icon"></span>201 Oak Street Building 27 <br> Manchester, USA</li>
-                        </ul>
-                    </div>
-                    <div class="contact-data">
-                        <h4>Australia</h4>
-                        <ul>
-                            <li><span class="fas fa-mobile icon"></span>+ 123 456 7890</li>
-                            <li><span class="fas fa-map-marker-alt icon"></span>201 Oak Street Building 27 <br> Manchester, USA</li>
-                        </ul>
+                        {% if contact_info %}
+                            <h4>{{ contact_info.country }}</h4>
+                            <ul>
+                                <li><span class="fas fa-mobile icon"></span>{{ contact_info.phone }}</li>
+                                <li><span class="fas fa-envelope icon"></span>{{ contact_info.email }}</li>
+                                <li><span class="fas fa-map-marker-alt icon"></span>{{ contact_info.address }}</li>
+                            </ul>
+                        {% else %}
+                            <h4>United States</h4>
+                            <ul>
+                                <li><span class="fas fa-mobile icon"></span>+ 123 456 7890</li>
+                                <li><span class="fas fa-envelope icon"></span>admin@goshop</li>
+                                <li><span class="fas fa-map-marker-alt icon"></span>201 Oak Street Building 27 <br> Manchester, USA</li>
+                            </ul>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-md-8 col-md-push-1">
@@ -702,16 +378,21 @@
                         <form class="contact-forms" id="contact-form" action="{% url 'base:contact' %}" method="post">
                             {% csrf_token %}
                             <div class="form-group">
-                                <input class="form-control" type="text" name="name" placeholder="Name" required>
+                                <input class="form-control" type="text" name="name" placeholder="Имя" required>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="email" name="email" placeholder="E-mail" required>
+                                <input class="form-control" type="email" name="email" placeholder="Email" required>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" name="message" cols="10" rows="7" placeholder="Message" required></textarea>
+                                <textarea class="form-control" name="message" cols="10" rows="7" placeholder="Сообщение" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-round btn-g btn btn-primary btn-lg text-center float-right">Submit</button>
+                            <button type="submit" class="btn btn-round btn-g btn btn-primary btn-lg text-center float-right">Отправить</button>
                         </form>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -732,32 +413,26 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-12">
                         <div class="f_logo">
-                            <a href="#"><img src="{% static 'assets-for-index-2/img/logo.png' %}" alt="" /></a>
+                            <a href="#"><img src="{% static 'assets-for-index-2/img/logo.png' %}" alt="Логотип" /></a>
                             <p>Sed ut perspiciatis unde omnis iste natus error sit best shop for you voluptatem.</p>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-12 info_menu">
-                        <h4>Information</h4>
+                        <h4>Информация</h4>
                         <ul>
-                            <li><a href="#">Delivery Information</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms & Conditions</a></li>
-                            <li><a href="#">Return & Exchange</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#">Free Shipping</a></li>
-                            <li><a href="#">Order Status</a></li>
-                            <li><a href="#">Gift Cards</a></li>
-                            <li><a href="#">International</a></li>
+                            <li><a href="#">Информация о доставке</a></li>
+                            <li><a href="#">Политика конфиденциальности</a></li>
+                            <li><a href="#">Условия и положения</a></li>
+                            <li><a href="#">Возврат и обмен</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 col-sm-12">
                         <div class="footer-newsletter">
                             <div class="center">
-                                <h4>Stay With Us</h4>
+                                <h4>Будьте с нами</h4>
                                 <form action="#" method="post">
                                     <div class="input-group">
-                                        <input class="form-control" type="text" placeholder="E-mail">
+                                        <input class="form-control" type="text" placeholder="Email">
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="button"><span class="fas fa-arrow-right"></span></button>
                                         </span>
@@ -765,7 +440,7 @@
                                 </form>
                                 <div class="social">
                                     <ul>
-                                        <li class="fndus">Find us here:</li>
+                                        <li class="fndus">Найдите нас здесь:</li>
                                         <li><a href="http://facebook.com/" target="_blank"><span class="fab fa-facebook-f"></span></a></li>
                                         <li><a href="https://twitter.com/" target="_blank"><span class="fab fa-twitter"></span></a></li>
                                         <li><a href="http://linkedin.com/" target="_blank"><span class="fab fa-linkedin-in"></span></a></li>
@@ -781,7 +456,7 @@
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <div class="footer-copyright">
-                            <p>© 2025 Bestshop - All Rights Reserved.</p>
+                            <p>© 2025 Bestshop - Все права защищены.</p>
                         </div>
                     </div>
                 </div>
@@ -811,56 +486,6 @@
                 navigation: {
                     nextEl: '.home-slider-next',
                     prevEl: '.home-slider-prev',
-                },
-            });
-
-            // Featured Products Slider
-            const featuredProductSlider = new Swiper('.product-list-slider-featured', {
-                slidesPerView: 3,
-                spaceBetween: 30,
-                loop: true,
-                navigation: {
-                    nextEl: '.product-list-slider-next',
-                    prevEl: '.product-list-slider-prev',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 10,
-                    },
-                    768: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 30,
-                    },
-                },
-            });
-
-            // New Products Slider
-            const newProductSlider = new Swiper('.product-list-slider-new', {
-                slidesPerView: 3,
-                spaceBetween: 30,
-                loop: true,
-                navigation: {
-                    nextEl: '.product-list-slider-next',
-                    prevEl: '.product-list-slider-prev',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 10,
-                    },
-                    768: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 30,
-                    },
                 },
             });
 
