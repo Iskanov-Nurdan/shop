@@ -36,8 +36,8 @@ def contact_view(request):
                 fail_silently=False,
             )
             messages.success(request, 'Ваше сообщение успешно отправлено!')
-            return redirect('base:index')  # Перенаправление на главную страницу
+            return redirect('base:index')  
         except Exception as e:
             return HttpResponse(f"Ошибка отправки письма: {str(e)}")
 
-    return render(request, 'index-3.html')  # Можно оставить для GET-запросов, но лучше перенаправить
+    return render(request, 'index-3.html') 

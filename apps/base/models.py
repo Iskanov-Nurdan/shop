@@ -3,7 +3,7 @@ from django.db import models
 class Home(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок")
     description = models.TextField(verbose_name="Описание")
-    image = models.ImageField(upload_to='home_images/', blank=True, null=True, verbose_name="Изображение")
+    image = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name="Изображение")
 
     def __str__(self):
         return self.title
@@ -16,7 +16,7 @@ class Testimonial(models.Model):
     name = models.CharField(max_length=100, default='Аноним', verbose_name="Имя")
     position = models.CharField(max_length=100, verbose_name="Должность")
     content = models.TextField(verbose_name="Отзыв")
-    image = models.ImageField(upload_to='testimonials/', blank=True, null=True, verbose_name="Фото")
+    image = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name="Фото")
 
     def __str__(self):
         return self.name
@@ -30,7 +30,7 @@ class Testimonial(models.Model):
 class BlogPost(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок")
     content = models.TextField(verbose_name="Содержание")
-    image = models.ImageField(upload_to='blog_images/', blank=True, null=True, verbose_name="Изображение")
+    image = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name="Изображение")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
 
     def __str__(self):

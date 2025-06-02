@@ -5,6 +5,6 @@ app_name = 'base'
 
 urlpatterns = [
     path('', views.index_view, name='index'),
-    path('contact/', views.contact_view, name='contact'),  # Маршрут для формы контактов
+    path('contact/', views.contact_view, name='contact'), 
 ]
 
